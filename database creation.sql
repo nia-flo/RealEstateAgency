@@ -14,7 +14,7 @@ CREATE TABLE Person(
 CREATE TABLE Employee(
 	EGN CHAR(10) PRIMARY KEY,
 	salary DECIMAL(7, 2) NOT NULL,
-	position VARCHAR(20) CHECK(position IN ('', 'sale')) NOT NULL,
+	position VARCHAR(20) CHECK(position IN ('agent', 'manager', 'intern', 'jurist', 'secretary')) NOT NULL,
 	FOREIGN KEY(EGN) REFERENCES Person(EGN)
 );
 
