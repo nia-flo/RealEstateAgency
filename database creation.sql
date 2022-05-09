@@ -27,6 +27,7 @@ CREATE TABLE Estate(
 	roomsCount INT NOT NULL CHECK(roomsCount > 0),
 	realEstateAgent CHAR(10),
 	additionalInfo VARCHAR(200),
+	type CHAR(4) CHECK(type IN ('rent', 'sale')) NOT NULL,
 	FOREIGN KEY(realEstateAgent) REFERENCES Employee(EGN)
 );
 
@@ -40,7 +41,6 @@ CREATE TABLE Estate_Owner(
 
 CREATE TABLE Deal(
 	id INT IDENTITY(1,1) PRIMARY KEY,
-	type CHAR(4) CHECK(type IN ('rent', 'sale')) NOT NULL,
 	notary CHAR(10) NOT NULL,
 	estate INT NOT NULL,
 	date DATETIME NOT NULL DEFAULT(GETDATE()),

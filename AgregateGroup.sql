@@ -1,3 +1,4 @@
+USE RealEstateAgency;
 
 --- Highest paid agent in the agency
 SELECT p.name, e.salary AS salary
@@ -58,13 +59,13 @@ SELECT AVG(e.roomsCount) AS 'numberOfRooms'
 FROM Deal d
 JOIN Estate e
 ON d.estate = e.id
-WHERE d.type = 'rent'
+WHERE e.type = 'rent';
 
 
 --- The cheapest price of estate and the most expensive price of estate in each city
 SELECT e.city, MIN(e.price) AS 'cheapest estate price', MAX(e.price) AS 'priciest estate price'
 FROM Estate e
-GROUP BY e.city
+GROUP BY e.city;
 
 
 --- The average size of sold estates with good or very good condition by city
@@ -72,8 +73,8 @@ SELECT e.city, AVG(e.area) AS 'average area'
 FROM Deal d
 JOIN Estate e
 ON d.estate = e.id
-WHERE d.type = 'sale' AND (d.conditions = 'Good' OR d.conditions = 'Very Good')
-GROUP BY e.city
+WHERE e.type = 'sale' AND (d.conditions = 'Good' OR d.conditions = 'Very Good')
+GROUP BY e.city;
 
 
 --- The minimum commission percentage so far for each agent that had at least 1 deal and the price of the estate
@@ -86,4 +87,4 @@ ON e.EGN = p.EGN
 JOIN Estate ee
 ON ee.id = d.estate
 WHERE d.commissionPersentage = (SELECT MIN(commissionPersentage) FROM Deal d1 WHERE d.realEstateAgent = d1.realEstateAgent)
-ORDER BY p.name
+ORDER BY p.name;
