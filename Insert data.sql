@@ -268,7 +268,10 @@ INSERT INTO Estate VALUES
   ('Shumen','ul. Opulchenska 107',142932,172,4,'6095890007','Teche cheshmata','sale'),
   ('Blagoevgrad','ul. Pirotska 5',87801,111,3,'6658403783','','sale'),
   ('Silistra','bul. car Osvoboditel 108',112476,156,4,'6387617237','','sale'),
-  ('Vidin','ul. Sofiiski geroi 53',200340,210,6,'7827802089','','sale');
+  ('Vidin','ul. Sofiiski geroi 53',200340,210,6,'7827802089','','sale'),
+  ('Sofia','ul. Galichica 33',1500,200,4,'5998182660','','rent'),
+  ('Sofia','ul. Galichica 33',8000000,200,4,'5998182660','','sale'),
+  ('Sofia','ul. Universitetska 1',500,100,2,'6095890007','','rent');
 
 ------- Insert Estate_Owner------------
 INSERT INTO Estate_Owner VALUES 
