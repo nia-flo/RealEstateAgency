@@ -24,5 +24,6 @@ AFTER INSERT
 AS
 UPDATE Employee
 SET salary = salary*105/100
-WHERE EGN IN (SELECT realEstateAgent FROM INSERTED) AND (SELECT conditions FROM INSERTED) = 'Excellent'
+WHERE EGN IN (SELECT realEstateAgent FROM INSERTED) AND 
+((SELECT conditions FROM INSERTED) = 'Excellent' OR (SELECT conditions FROM INSERTED) = 'Very Good')
 GO
