@@ -17,6 +17,15 @@ BEGIN
 END
 GO
 
+--- Example
+SELECT * FROM Employee
+WHERE EGN = '0024336282'
+DELETE FROM Employee
+WHERE EGN = '0024336282'
+SELECT * FROM Employee
+WHERE EGN = '0024336282'
+
+
 --- On creation in deal if conditions were very good or excellent, agent gets a raise of 5% on his current salary
 GO
 CREATE TRIGGER create_deal ON Deal
@@ -27,3 +36,12 @@ SET salary = salary*105/100
 WHERE EGN IN (SELECT realEstateAgent FROM INSERTED) AND 
 ((SELECT conditions FROM INSERTED) = 'Excellent' OR (SELECT conditions FROM INSERTED) = 'Very Good')
 GO
+
+---Example
+SELECT * FROM Employee
+WHERE EGN = '1740948824'
+INSERT INTO Deal
+VALUES ('8371073496',2,'2016-11-23',136948,'Very Good','1740948824',6.11)
+SELECT * FROM Employee
+WHERE EGN = '1740948824'
+
