@@ -45,3 +45,25 @@ VALUES ('8371073496',2,'2016-11-23',136948,'Very Good','1740948824',6.11)
 SELECT * FROM Employee
 WHERE EGN = '1740948824'
 
+--- On updating company's bulstat that will resolve in updating the Deal_BuyerCompany to match to changed bulstat
+
+GO
+CREATE TRIGGER change_company_bulstat ON Company
+AFTER UPDATE
+AS
+UPDATE Deal_BuyerCompany
+SET buyer = (SELECT bulstat FROM INSERTED)
+WHERE buyer IN (SELECT bulstat FROM DELETED)
+GO
+
+---Example
+SELECT * FROM Deal_BuyerCompany
+WHERE buyer = '0165754'
+
+UPDATE Company
+SET bulstat = '0011223'
+WHERE bulstat = '0165754'
+
+SELECT * FROM Deal_BuyerCompany
+WHERE buyer = '0011223'
+
