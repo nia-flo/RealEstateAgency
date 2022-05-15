@@ -104,7 +104,7 @@ INSERT INTO Person VALUES
    ('7638593025','bul. Aleksandur Stamboliiski 85, flr-3, ap. 10','Kierra Hayden','Kierra_Hayden@gmail.com','0891577941','f');
 
 ------- Insert Employee------------
-INSERT INTO Employee VALUES
+INSERT INTO Employee(EGN, salary, position) VALUES
   ('2586772294',4383.87,'agent'),
   ('2216857618',1958.9,'agent'),
   ('9597202867',6246.88,'manager'),

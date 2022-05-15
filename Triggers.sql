@@ -6,7 +6,7 @@ CREATE TRIGGER delete_employee ON Employee
 INSTEAD OF DELETE
 AS
 UPDATE Employee
-SET has_quit = 'yes' --- default value for column has_quit is 'no' or NULL
+SET hasQuit = 'yes' --- default value for column has_quit is 'no'
 WHERE EGN IN (SELECT EGN FROM DELETED)
 BEGIN
 	SELECT id,notary,estate,date,price,conditions,realEstateAgent,commissionPersentage 
