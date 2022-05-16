@@ -45,25 +45,34 @@ VALUES ('8371073496',2,'2016-11-23',136948,'Very Good','1740948824',6.11)
 SELECT * FROM Employee
 WHERE EGN = '1740948824'
 
---- On updating company's bulstat that will resolve in updating the Deal_BuyerCompany to match to changed bulstat
+--- On deleting an agent all of his deals are being transfered to the agent with least deals
 
 GO
-CREATE TRIGGER change_company_bulstat ON Company
-AFTER UPDATE
+CREATE TRIGGER employee_quit ON Employee 
+INSTEAD OF DELETE
 AS
-UPDATE Deal_BuyerCompany
-SET buyer = (SELECT bulstat FROM INSERTED)
-WHERE buyer IN (SELECT bulstat FROM DELETED)
+UPDATE Deal
+SET realestateagent = (SELECT TOP 1 realestateagent from Deal
+                       GROUP BY realestateagent
+                       ORDER BY COUNT(realestateagent))
+WHERE realestateagent IN (SELECT EGN FROM DELETED)
+BEGIN
+	SELECT id,notary,estate,date,price,conditions,realEstateAgent,commissionPersentage 
+	FROM Deal
+	JOIN Employee
+	ON realEstateAgent=EGN
+	WHERE EGN=(SELECT EGN FROM DELETED)
+END
 GO
 
 ---Example
-SELECT * FROM Deal_BuyerCompany
-WHERE buyer = '0165754'
+SELECT * 
+FROM Deal 
+WHERE realestateagent = '3709558378'
 
-UPDATE Company
-SET bulstat = '0011223'
-WHERE bulstat = '0165754'
+DELETE FROM Employee 
+WHERE egn = '3709558378'
 
-SELECT * FROM Deal_BuyerCompany
-WHERE buyer = '0011223'
-
+SELECT * 
+FROM Deal 
+WHERE realestateagent = '3709558378'
