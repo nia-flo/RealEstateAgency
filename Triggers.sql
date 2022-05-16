@@ -49,20 +49,13 @@ WHERE EGN = '1740948824'
 
 GO
 CREATE TRIGGER employee_quit ON Employee 
-INSTEAD OF DELETE
+AFTER UPDATE
 AS
 UPDATE Deal
 SET realestateagent = (SELECT TOP 1 realestateagent from Deal
                        GROUP BY realestateagent
                        ORDER BY COUNT(realestateagent))
-WHERE realestateagent IN (SELECT EGN FROM DELETED)
-BEGIN
-	SELECT id,notary,estate,date,price,conditions,realEstateAgent,commissionPersentage 
-	FROM Deal
-	JOIN Employee
-	ON realEstateAgent=EGN
-	WHERE EGN=(SELECT EGN FROM DELETED)
-END
+WHERE realestateagent IN (SELECT EGN FROM INSERTED where hasquit = 'yes')
 GO
 
 ---Example
