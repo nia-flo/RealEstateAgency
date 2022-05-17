@@ -69,3 +69,7 @@ WHERE egn = '3709558378'
 SELECT * 
 FROM Deal 
 WHERE realestateagent = '3709558378'
+
+SELECT * 
+FROM Deal 
+WHERE realestateagent = '4498532301'

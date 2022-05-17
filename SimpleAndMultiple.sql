@@ -147,7 +147,7 @@ FROM Person p2, Person p3, Deal d1, Deal_BuyerCompany dbc
 where p2.name = 'Wilson Levy' and dbc.deal = d1.id and d1.realestateagent = p2.egn and p3.egn = d1.notary
 	UNION
 SELECT p4.name, d2.price, p5.name
-from Deal d2, Person p4, Person p5
+FROM Deal d2, Person p4, Person p5
 WhERE p4.name = 'Cole George' and d2.realestateagent = p4.egn and p5.egn = d2.notary
 	EXCEPT
 SELECt p6.name, d3.price, p7.name
