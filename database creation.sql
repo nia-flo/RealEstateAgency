@@ -54,14 +54,6 @@ CREATE TABLE Deal(
 	FOREIGN KEY(realEstateAgent) REFERENCES Employee(EGN)
 );
 
-CREATE TABLE Deal_Seller(
-	deal INT,
-	seller CHAR(10),
-	PRIMARY KEY(deal, seller),
-	FOREIGN KEY(deal) REFERENCES Deal(id),
-	FOREIGN KEY(seller) REFERENCES Person(EGN)
-);
-
 CREATE TABLE Deal_BuyerPerson(
 	deal INT,
 	buyer CHAR(10),

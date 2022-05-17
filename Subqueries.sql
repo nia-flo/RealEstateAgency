@@ -31,11 +31,12 @@ SELECT DISTINCT p.name, p.EGN
 FROM Deal_BuyerPerson bp
 	JOIN Person p ON bp.buyer = p.EGN
 	JOIN Deal d ON bp.deal = d.id
-	JOIN Deal_Seller ds ON ds.deal = d.id
+	JOIN Estate e ON e.id = d.estate
+	JOIN Estate_Owner eo ON eo.estate = e.id
 	WHERE d.date > ANY ( SELECT d2.date
-									FROM Deal_Seller ds2 
-									JOIN Deal d2 ON ds2.deal = d2.id
-									WHERE ds.seller = ds2.seller )
+									FROM Deal d2
+									JOIN Estate e2 ON e2.id = d2.estate
+									JOIN Estate_Owner eo2 ON eo2.estate = e2.id)
 
 
 
