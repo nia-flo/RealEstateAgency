@@ -31,3 +31,7 @@ WHERE id NOT IN (SELECT estate FROM Deal);
 SELECT * FROM RealEstateAgents AS a
 WHERE a.EGN IN (SELECT d.realEstateAgent FROM Deal AS d
 				WHERE d.price > 1000);
+			
+-- index in employee for position
+CREATE NONCLUSTERED INDEX employee_position_idx
+ON Employee(position);
