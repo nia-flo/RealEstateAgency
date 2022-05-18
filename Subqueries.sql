@@ -1,4 +1,4 @@
-﻿-- 1) Да се изведат имената на агентите, които са участвали в сделка за имот, чийто собственик живее на бул. България
+﻿-- 1) Names of real estate agents that took part in a deal for an estate with its owner living on bul. Bulgaria
 SELECT DISTINCT agent.name
 FROM Deal d
 JOIN Person agent ON d.realEstateAgent = agent.EGN
@@ -8,8 +8,8 @@ WHERE d.estate IN ( SELECT eo.estate
 									WHERE p.address LIKE 'bul. Bulgaria %' )
 
 
--- 2) Да се изведат в низходящ ред по стойността на комисионната идентификационния номер на сделките, името на купувача (физическо или юридическо лице) и комисионната 
---    за всички сделки с комисионна по-голяма от максималната комисионна за сделките, в които е участвал агентът Alina Huber
+-- 2) Deal ID, buyer (person or company) name and commision percentage, ordered decreasingly by commission percentage, for deals with commission percentage
+--    higher than the max commission percentage for deals with real estate agent Alina Huber
 SELECT d.id, buyer.name, d.commissionPersentage
 FROM Deal d, (SELECT c.name, bc.deal
 							FROM Deal_BuyerCompany bc
@@ -26,7 +26,7 @@ WHERE d.id = buyer.deal
 ORDER BY d.commissionPersentage DESC
 
 
--- 3) Да се изведат името на купувача и ЕГН-то му за всички сделки, в които продавача е сключвал сделка и преди това
+-- 3) Buyer name and EGN for deals where the buyer has made a deal before
 SELECT DISTINCT p.name, p.EGN
 FROM Deal_BuyerPerson bp
 	JOIN Person p ON bp.buyer = p.EGN
@@ -40,7 +40,7 @@ FROM Deal_BuyerPerson bp
 
 
 
--- 4) Да се изведат подредени във възходящ ред града и адресите на всички имоти, продадени след последната сделка, в която е участвал агентът Cole George
+-- 4) City and address in alphabetical order for estates sold after real estate agent Cole George's last deal
 SELECT e.city, e.address
 FROM Deal d
 JOIN Estate e ON e.id = d.estate
@@ -52,7 +52,8 @@ WHERE d.date > ALL ( SELECT d2.date
 ORDER BY e.city, e.address
 
 
--- 5) Да се изведат имената и имейлите на агентите, които са участвали в сделка с комисионна по-голяма от комисионните при сделките, сключени за имоти в Пловдив
+-- 5) Names and addresses of real estate agents that took part in a deal with commission percentage higher than 
+--    the commission percentages of deals for estates in Plovdiv
 SELECT DISTINCT p.name, p.email
 FROM Deal d
 JOIN Person p ON d.realEstateAgent = p.EGN
