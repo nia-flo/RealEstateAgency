@@ -65,6 +65,7 @@ WHERE e.type = 'rent';
 --- The cheapest price of estate and the most expensive price of estate in each city
 SELECT e.city, MIN(e.price) AS 'cheapest estate price', MAX(e.price) AS 'priciest estate price'
 FROM Estate e
+WHERE e.type = 'sale'
 GROUP BY e.city;
 
 
