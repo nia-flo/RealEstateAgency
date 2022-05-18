@@ -26,18 +26,16 @@ WHERE d.id = buyer.deal
 ORDER BY d.commissionPersentage DESC;
 
 
--- 3) Buyer name and EGN for deals where the buyer has made a deal before
+-- 3) Buyer name and EGN for deals where the estate owner has sold or rented an estate before
 SELECT DISTINCT p.name, p.EGN
 FROM Deal_BuyerPerson bp
 	JOIN Person p ON bp.buyer = p.EGN
 	JOIN Deal d ON bp.deal = d.id
-	JOIN Estate e ON e.id = d.estate
-	JOIN Estate_Owner eo ON eo.estate = e.id
+	JOIN Estate_Owner eo ON eo.estate = d.estate
 	WHERE d.date > ANY ( SELECT d2.date
-					FROM Deal d2
-					JOIN Estate e2 ON e2.id = d2.estate
-					JOIN Estate_Owner eo2 ON eo2.estate = e2.id);
-
+					FROM Estate_Owner eo2
+					JOIN Deal d2 ON d2.estate = eo2.estate
+					WHERE eo.owner = eo2.owner);
 
 
 -- 4) City and address in alphabetical order for estates sold after real estate agent Cole George's last deal
